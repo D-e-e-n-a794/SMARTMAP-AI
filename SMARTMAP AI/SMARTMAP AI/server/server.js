@@ -1124,5 +1124,9 @@ server.on('error', err=>{
     process.exit(1);
   }
 });
-
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
 module.exports = app;
