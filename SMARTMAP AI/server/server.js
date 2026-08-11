@@ -515,12 +515,17 @@ const server = app.listen(PORT, ()=>{
   console.log(`🌐 Frontend: http://localhost:3000\n`);
   console.log(`📍 DEBUG: http://localhost:${PORT}/api/debug/city/Islamabad\n`);
 });
-
-server.on('error', err=>{
-  if(err.code==='EADDRINUSE'){
-    console.error(`❌ Port ${PORT} in use. Kill it or change PORT in .env`);
-    process.exit(1);
-  }
-});
+// Replace the "── START ──" block at the bottom with:
+if (process.env.VERCEL !== '1') {
+  const server = app.listen(PORT, () => {
+    console.log(`✅ Server running on http://localhost:${PORT}`);
+  });
+  server.on('error', err => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`❌ Port ${PORT} in use.`);
+      process.exit(1);
+    }
+  });
+}
 
 module.exports = app;
