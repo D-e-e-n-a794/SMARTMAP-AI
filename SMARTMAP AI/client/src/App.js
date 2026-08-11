@@ -555,7 +555,11 @@ export default function App(){
       else throw new Error();
     }catch{
       try{
-        const fb=await axios.get('http://localhost:5000/api/places',{params:{limit:2000},timeout:8000});
+       const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+const fb = await axios.get(`${API_BASE}/api/places`, { params:{limit:200}, timeout:5000 });
+
+const fb = await axios.get(`${API_BASE}/api/places`, { params:{limit:200}, timeout:5000 });
         if(fb.data?.success&&Array.isArray(fb.data.data)){setPlaces(fb.data.data);showNotification('✅ Connected to backend','success',2000);}
         else throw new Error();
       }catch{
